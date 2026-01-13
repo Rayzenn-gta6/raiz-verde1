@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Raiz Verde | Loja Sustentável</title>
+<style>
+* { box-sizing: border-box; margin:0; padding:0; }
+body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f0fef4; color: #045d04; line-height:1.6; }
+header { background: linear-gradient(135deg, #22c55e, #4ade80); color:#fff; padding:40px 20px; text-align:center; font-size:28px; font-weight:700; border-bottom-left-radius:15px; border-bottom-right-radius:15px; box-shadow:0 4px 10px rgba(0,0,0,0.1);}
+nav { background-color:#16a34a; padding:14px 0; text-align:center; border-radius:0 0 10px 10px; box-shadow:0 2px 6px rgba(0,0,0,0.1);}
+nav a { color:#fff; margin:0 18px; text-decoration:none; font-weight:600; font-size:16px; transition:color 0.3s;}
+nav a:hover { color:#e0f7e5;}
+section { padding:60px 20px;}
+h2 { color:#059669; text-align:center; font-size:26px; margin-bottom:25px;}
+.conteudoSecao { font-size:15px; color:#045d04; max-width:800px; margin:0 auto; line-height:1.7;}
+.conteudoSecao li { margin-bottom:10px;}
+.produtos { display:grid; grid-template-columns:repeat(auto-fit, minmax(240px,1fr)); gap:30px; justify-items:center; margin-top:30px;}
+.produto { background:#e6f8ed; width:240px; padding:20px; border-radius:12px; box-shadow:0 6px 18px rgba(0,0,0,0.12); text-align:center; transition:transform 0.3s, box-shadow 0.3s, background 0.3s; cursor:pointer; text-decoration:none; color:inherit;}
+.produto:hover { transform:translateY(-6px); box-shadow:0 10px 25px rgba(0,0,0,0.15); background:#d1f3d1;}
+.produto img { width:100%; height:160px; object-fit:cover; border-radius:10px; margin-bottom:12px;}
+.produto h3 { font-size:18px; margin:10px 0;}
+.preco { font-weight:700; color:#059669; font-size:16px; margin:8px 0;}
+button { background-color:#22c55e; color:#fff; border:none; padding:12px 18px; cursor:pointer; font-weight:600; border-radius:8px; text-transform:uppercase; transition:all 0.3s; font-size:14px;}
+button:hover { background-color:#16a34a; transform:scale(1.08);}
+footer { background-color:#16a34a; color:#fff; text-align:center; padding:25px 20px; border-top-left-radius:15px; border-top-right-radius:15px; font-size:14px; box-shadow:0 -4px 10px rgba(0,0,0,0.1);}
+#carrinho { position:fixed; top:70px; right:20px; width:300px; background-color:#ffffff; border:2px solid #16a34a; border-radius:12px; padding:20px; box-shadow:0 6px 18px rgba(0,0,0,0.15); max-height:80vh; overflow-y:auto; display:none; z-index:999;}
+.itemCarrinho { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;}
+.itemCarrinho button { width:auto; padding:4px 7px; background-color:#ef4444; font-size:12px; border-radius:6px;}
+.itemCarrinho img { width:40px; height:40px; object-fit:cover; border-radius:6px; border:1px solid #16a34a; margin-right:8px;}
+#toggleCarrinho { position:fixed; top:25px; right:25px; background-color:#22c55e; color:#fff; border:none; border-radius:50%; cursor:pointer; font-weight:bold; font-size:20px; z-index:9999; width:55px; height:55px; display:flex; align-items:center; justify-content:center; transition:transform 0.3s, background 0.3s;}
+#toggleCarrinho:hover { background-color:#16a34a; transform:scale(1.12);}
+#modalProduto { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.65); display:none; justify-content:center; align-items:center; z-index:1000;}
+.modalConteudo { background:#f0fff0; padding:25px; border-radius:15px; width:420px; max-height:85vh; overflow-y:auto; text-align:center; transform:scale(0.5); opacity:0; transition:all 0.35s ease;}
+.modalConteudo.show { transform:scale(1); opacity:1;}
+.modalConteudo img { width:100%; height:220px; object-fit:cover; border-radius:10px; margin-bottom:12px;}
+.modalConteudo h3 { color:#059669; margin:10px 0;}
+.modalConteudo p { text-align:left; margin-top:10px; font-size:14px;}
+.modalConteudo button { width:48%; margin-top:18px;}
+.modalConteudo button.fechar { background-color:#ef4444; margin-left:4%;}
+.videoClicavel { display:inline-block; cursor:pointer; border-radius:12px; overflow:hidden; box-shadow:0 6px 18px rgba(0,0,0,0.15); transition:transform 0.3s;}
+.videoClicavel img { width:100%; display:block;}
+.videoClicavel:hover { transform:scale(1.05);}
+</style>
+</head>
+<body>
+
+<!-- ÁUDIO AUTOMÁTICO -->
+<audio id="audioSite" autoplay loop>
+  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+  O seu navegador não suporta áudio.
+</audio>
+
+<audio id="audioCheckout" src="videoplayback.mp3"></audio>
+
+<header>Raiz Verde | Produtos Sustentáveis</header>
+
+<nav>
+    <a href="#inicio">Início</a>
+    <a href="#produtos">Produtos</a>
+    <a href="#educacao">Educação</a>
+    <a href="#sobre">Sobre</a>
+    <a href="#contactos">Contactos</a>
+</nav>
+
+<button id="toggleCarrinho">🛒</button>
+
+<div id="carrinho">
+    <div id="itensCarrinho"></div>
+    <p><strong>Total: €<span id="total">0.00</span></strong></p>
+    <button id="checkoutBtn">Finalizar Compra</button>
+</div>
+
+<div id="modalProduto">
+    <div class="modalConteudo">
+        <img id="modalImg" src="">
+        <h3 id="modalNome"></h3>
+        <p id="modalPreco"></p>
+        <p id="modalDescricao"></p>
+        <button onclick="adicionarCarrinhoModal()">Adicionar ao Carrinho</button>
+        <button class="fechar" onclick="fecharModal()">Fechar</button>
+    </div>
+</div>
+
+<section id="inicio">
+    <h2>Bem-vindo</h2>
+    <p style="text-align:center; max-width: 800px; margin: 0 auto; line-height: 1.7;">
+        Explore produtos ecológicos e divertidos para toda a família! Na <strong>Raiz Verde</strong>, acreditamos que pequenas escolhas sustentáveis podem fazer uma grande diferença para o nosso planeta.
+    </p>
+</section>
+
+<section id="escolaLink">
+  <h2>Visite a Escola Secundária Martins Sarmento</h2>
+  <p style="text-align:center;">Clique no logotipo para abrir o site oficial da escola!</p>
+  <div style="text-align:center; margin-top:20px;">
+    <a href="https://esmsarmento.pt" target="_blank">
+      <img src="https://esmsarmento.pt/imgs/downloads/042135_1_6322_logotipo.png" alt="Logotipo ESMSarmento" style="width:180px; border-radius:12px; border:2px solid #16a34a;">
+    </a>
+  </div>
+</section>
+
+<section id="produtos">
+    <h2>Produtos Sustentáveis</h2>
+    <div class="produtos" id="listaProdutos"></div>
+</section>
+
+<section id="educacao">
+    <h2>Educação Ambiental</h2>
+    <ul class="conteudoSecao">
+        <li>Reduzir desperdício</li>
+        <li>Reutilizar materiais</li>
+        <li>Escolher produtos responsáveis</li>
+    </ul>
+</section>
+
+<section id="sobre">
+    <h2>Sobre a Raiz Verde</h2>
+    <p class="conteudoSecao">Projeto dedicado à promoção de práticas sustentáveis de forma divertida e educativa para todas as idades.</p>
+</section>
+
+<section id="contactos">
+    <h2>Contactos</h2>
+    <p class="conteudoSecao">Email: contacto@raizverde.pt</p>
+    <p class="conteudoSecao">Telefone: 912 345 678</p>
+</section>
+
+<!-- VÍDEO CLICÁVEL -->
+<section id="video">
+  <h2>Assista ao Vídeo</h2>
+  <p style="text-align:center;">Clique no vídeo para abrir no YouTube</p>
+  <div style="text-align:center; margin-top:20px;">
+    <a href="https://www.youtube.com/watch?v=EWqnWXnXURw" target="_blank" class="videoClicavel">
+      <img src="https://img.youtube.com/vi/EWqnWXnXURw/0.jpg" alt="Vídeo YouTube">
+    </a>
+  </div>
+</section>
+
+<footer>
+    <p>Projeto Escolar | Álvaro Leite nº4 | Pedro Lopez nº20</p>
+</footer>
+
+<script>
+// Produtos
+const produtos = [
+{name:"Garrafa Reutilizável", price:12.99, desc:"Garrafa de aço inoxidável, reutilizável e livre de BPA. Ideal para manter a água fresca durante todo o dia e reduzir o consumo de plástico descartável.", img:"https://cookandlifestyle.pt/cdn/shop/products/GR-WB-M010_Glass_water_bottle_Olive_t0sz5g.jpg?v=1680686331&width=1024"},
+{name:"Escova de Bambu", price:3.50, desc:"Escova de dentes feita com cabo de bambu biodegradável. As cerdas são suaves e perfeitas para uma higiene diária responsável com o planeta.", img:"https://thebamandboo.com/cdn/shop/files/bam-and-boo-grounded-skincare-azores-bamboo-toothbrush-pack-shot-product-00.jpg?v=1712247189"},
+{name:"Saco de Pano", price:4.99, desc:"Saco de algodão orgânico, resistente e reutilizável. Perfeito para compras e transporte de pequenos objetos sem recorrer a sacos de plástico.", img:"https://esfera-azul.irisdata.pt/img/p/4/9/6/3/4963-large_default.jpg"},
+{name:"Palhinhas de Metal", price:6.90, desc:"Conjunto de palhinhas de aço inox com escova de limpeza. Reutilizáveis, higiénicas e amigas do ambiente.", img:"https://cdn.shopk.it/usercontent/ograneldasofia/media/images/8593478-120724-palinha_curva_unidade_mind_the_trash-min-800x800.png"},
+{name:"Sabão Natural", price:5.20, desc:"Sabão feito com ingredientes naturais e biodegradáveis. Ideal para higiene pessoal, com fragrância suave e sem químicos agressivos.", img:"https://www.tradicaonatural.pt/wp-content/uploads/2023/07/SabaoNatural_2023-Compra-Familiar-600x600.webp"},
+{name:"Champô Sólido", price:8.99, desc:"Champô em barra, 100% natural, sem plástico e adequado para todos os tipos de cabelo. Proporciona limpeza eficaz e brilho natural.", img:"https://halfarroba.com/wp-content/uploads/2023/06/307018.png"},
+{name:"Detergente Ecológico", price:7.50, desc:"Detergente para roupa e louça feito com ingredientes biodegradáveis, eficiente na limpeza e seguro para o ambiente.", img:"https://almadealecrim.pt/wp-content/uploads/2022/09/Alma-de-Alecrim-Loja-online-Detergente-Ecologico-EcoX-10.jpg"},
+{name:"Copo de Bambu", price:9.90, desc:"Copo reutilizável feito de bambu natural, perfeito para bebidas frias ou quentes. Leve e durável, ideal para crianças e adultos.", img:"https://www.ecobrindes.com.br/content/interfaces/cms/userfiles/produtos/copo-ecologico-bambu-eb1299-462.jpg"},
+{name:"Papel Reciclado", price:2.50, desc:"Papel produzido a partir de fibras recicladas. Excelente para escrita e impressão, contribuindo para a redução de desmatamento.", img:"https://tendadepapel.pt/cdn/shop/files/papel-reciclado-convites.jpg?v=1729153677&width=1946"},
+{name:"Velas Naturais", price:6.75, desc:"Velas feitas com cera natural e óleos essenciais. Queimam de forma limpa e proporcionam aroma agradável em qualquer divisão.", img:"https://www.artigosreligiososloja.pt/uploads/media/images/velas-de-cera-abeja-1.jpg"}
+];
+
+let carrinho = [];
+let modalProdutoId = null;
+
+function mostrarProdutos(){
+    const lista = document.getElementById("listaProdutos");
+    lista.innerHTML = "";
+    produtos.forEach((p, i)=>{
+        lista.innerHTML += `
+        <a class="produto" onclick="abrirModal(${i})">
+            <img src="${p.img}">
+            <h3>${p.name}</h3>
+            <p class="preco">€${p.price.toFixed(2)}</p>
+        </a>`;
+    });
+}
+
+function abrirModal(id){
+    modalProdutoId = id;
+    const p = produtos[id];
+    document.getElementById("modalImg").src = p.img;
+    document.getElementById("modalNome").innerText = p.name;
+    document.getElementById("modalPreco").innerText = "€"+p.price.toFixed(2);
+    document.getElementById("modalDescricao").innerText = p.desc;
+    const modal = document.getElementById("modalProduto");
+    const conteudo = modal.querySelector(".modalConteudo");
+    modal.style.display="flex";
+    setTimeout(()=>conteudo.classList.add("show"),10);
+}
+
+function fecharModal(){
+    const modal = document.getElementById("modalProduto");
+    const conteudo = modal.querySelector(".modalConteudo");
+    conteudo.classList.remove("show");
+    setTimeout(()=>modal.style.display="none",300);
+}
+
+function adicionarCarrinhoModal(){
+    if(modalProdutoId!==null){
+        carrinho.push(produtos[modalProdutoId]);
+        atualizarCarrinho();
+        fecharModal();
+    }
+}
+
+function atualizarCarrinho(){
+    const itens = document.getElementById("itensCarrinho");
+    itens.innerHTML="";
+    let total=0;
+    carrinho.forEach((item,index)=>{
+        total+=item.price;
+        itens.innerHTML+=`<div class="itemCarrinho">
+            <div style="display:flex; align-items:center;">
+                <img src="${item.img}" alt="${item.name}">
+                <span>${item.name} (€${item.price.toFixed(2)})</span>
+            </div>
+            <button onclick="removerCarrinho(${index})">X</button>
+        </div>`;
+    });
+    document.getElementById("total").innerText=total.toFixed(2);
+}
+
+function removerCarrinho(index){
+    carrinho.splice(index,1);
+    atualizarCarrinho();
+}
+
+document.getElementById("toggleCarrinho").addEventListener("click",()=>{
+    const carrinhoDiv=document.getElementById("carrinho");
+    carrinhoDiv.style.display = carrinhoDiv.style.display==="block"?"none":"block";
+});
+
+document.getElementById("checkoutBtn").addEventListener("click",()=>{
+    carrinho=[];
+    atualizarCarrinho();
+});
+
+mostrarProdutos();
+
+document.getElementById("checkoutBtn").addEventListener("click", () => {
+    if(carrinho.length === 0){ return; }
+
+    // Tocar o áudio do checkout
+    const audio = document.getElementById("audioCheckout");
+    audio.currentTime = 0; // começa desde o início
+    audio.play();
+
+    // Limpar carrinho
+    carrinho = [];
+    atualizarCarrinho();
+});
+
+</script>
+
+</body>
+</html>

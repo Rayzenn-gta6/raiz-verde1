@@ -26,10 +26,11 @@ button:hover { background-color:#16a34a; transform:scale(1.08);}
 footer { background-color:#16a34a; color:#fff; text-align:center; padding:25px 20px; border-top-left-radius:15px; border-top-right-radius:15px; font-size:14px; box-shadow:0 -4px 10px rgba(0,0,0,0.1);}
 #carrinho { position:fixed; top:70px; right:20px; width:300px; background-color:#ffffff; border:2px solid #16a34a; border-radius:12px; padding:20px; box-shadow:0 6px 18px rgba(0,0,0,0.15); max-height:80vh; overflow-y:auto; display:none; z-index:999;}
 .itemCarrinho { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;}
+.itemCarrinho img { width:40px; height:40px; object-fit:cover; border-radius:6px; margin-right:8px; border:1px solid #16a34a;}
 .itemCarrinho button { width:auto; padding:4px 7px; background-color:#ef4444; font-size:12px; border-radius:6px;}
-.itemCarrinho img { width:40px; height:40px; object-fit:cover; border-radius:6px; border:1px solid #16a34a; margin-right:8px;}
 #toggleCarrinho { position:fixed; top:25px; right:25px; background-color:#22c55e; color:#fff; border:none; border-radius:50%; cursor:pointer; font-weight:bold; font-size:20px; z-index:9999; width:55px; height:55px; display:flex; align-items:center; justify-content:center; transition:transform 0.3s, background 0.3s;}
 #toggleCarrinho:hover { background-color:#16a34a; transform:scale(1.12);}
+#badgeCarrinho { position:absolute; top:-5px; right:-5px; background:red; color:white; font-size:12px; font-weight:bold; width:20px; height:20px; border-radius:50%; display:flex; align-items:center; justify-content:center;}
 #modalProduto { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.65); display:none; justify-content:center; align-items:center; z-index:1000;}
 .modalConteudo { background:#f0fff0; padding:25px; border-radius:15px; width:420px; max-height:85vh; overflow-y:auto; text-align:center; transform:scale(0.5); opacity:0; transition:all 0.35s ease;}
 .modalConteudo.show { transform:scale(1); opacity:1;}
@@ -51,8 +52,6 @@ footer { background-color:#16a34a; color:#fff; text-align:center; padding:25px 2
   O seu navegador não suporta áudio.
 </audio>
 
-<audio id="audioCheckout" src="videoplayback.mp3"></audio>
-
 <header>Raiz Verde | Produtos Sustentáveis</header>
 
 <nav>
@@ -63,7 +62,10 @@ footer { background-color:#16a34a; color:#fff; text-align:center; padding:25px 2
     <a href="#contactos">Contactos</a>
 </nav>
 
-<button id="toggleCarrinho">🛒</button>
+<button id="toggleCarrinho">
+  🛒
+  <span id="badgeCarrinho">0</span>
+</button>
 
 <div id="carrinho">
     <div id="itensCarrinho"></div>
@@ -124,7 +126,6 @@ footer { background-color:#16a34a; color:#fff; text-align:center; padding:25px 2
     <p class="conteudoSecao">Telefone: 912 345 678</p>
 </section>
 
-<!-- VÍDEO CLICÁVEL -->
 <section id="video">
   <h2>Assista ao Vídeo</h2>
   <p style="text-align:center;">Clique no vídeo para abrir no YouTube</p>
@@ -157,6 +158,7 @@ const produtos = [
 let carrinho = [];
 let modalProdutoId = null;
 
+// Mostrar produtos
 function mostrarProdutos(){
     const lista = document.getElementById("listaProdutos");
     lista.innerHTML = "";
@@ -170,6 +172,7 @@ function mostrarProdutos(){
     });
 }
 
+// Abrir modal
 function abrirModal(id){
     modalProdutoId = id;
     const p = produtos[id];
@@ -183,6 +186,7 @@ function abrirModal(id){
     setTimeout(()=>conteudo.classList.add("show"),10);
 }
 
+// Fechar modal
 function fecharModal(){
     const modal = document.getElementById("modalProduto");
     const conteudo = modal.querySelector(".modalConteudo");
@@ -190,14 +194,17 @@ function fecharModal(){
     setTimeout(()=>modal.style.display="none",300);
 }
 
+// Adicionar ao carrinho
 function adicionarCarrinhoModal(){
     if(modalProdutoId!==null){
         carrinho.push(produtos[modalProdutoId]);
         atualizarCarrinho();
+        atualizarBadgeCarrinho();
         fecharModal();
     }
 }
 
+// Atualizar carrinho
 function atualizarCarrinho(){
     const itens = document.getElementById("itensCarrinho");
     itens.innerHTML="";
@@ -215,36 +222,38 @@ function atualizarCarrinho(){
     document.getElementById("total").innerText=total.toFixed(2);
 }
 
+// Atualizar badge
+function atualizarBadgeCarrinho(){
+    const badge = document.getElementById("badgeCarrinho");
+    badge.innerText = carrinho.length;
+}
+
+// Remover item do carrinho
 function removerCarrinho(index){
     carrinho.splice(index,1);
     atualizarCarrinho();
+    atualizarBadgeCarrinho();
 }
 
+// Botão do carrinho
 document.getElementById("toggleCarrinho").addEventListener("click",()=>{
     const carrinhoDiv=document.getElementById("carrinho");
     carrinhoDiv.style.display = carrinhoDiv.style.display==="block"?"none":"block";
 });
 
+// Finalizar compra com som
 document.getElementById("checkoutBtn").addEventListener("click",()=>{
+    if(carrinho.length===0){ return; }
+    // Tocar som do arquivo "videoplayback.mp3"
+    const audioCompra = new Audio("videoplayback.mp3");
+    audioCompra.play();
     carrinho=[];
     atualizarCarrinho();
+    atualizarBadgeCarrinho();
 });
 
+// Mostrar produtos na página
 mostrarProdutos();
-
-document.getElementById("checkoutBtn").addEventListener("click", () => {
-    if(carrinho.length === 0){ return; }
-
-    // Tocar o áudio do checkout
-    const audio = document.getElementById("audioCheckout");
-    audio.currentTime = 0; // começa desde o início
-    audio.play();
-
-    // Limpar carrinho
-    carrinho = [];
-    atualizarCarrinho();
-});
-
 </script>
 
 </body>

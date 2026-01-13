@@ -6,42 +6,118 @@
 <title>Raiz Verde | Loja Sustentável</title>
 <style>
 * { box-sizing: border-box; margin:0; padding:0; }
-body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f0fef4; color: #045d04; line-height:1.6; }
-header { background: linear-gradient(135deg, #22c55e, #4ade80); color:#fff; padding:40px 20px; text-align:center; font-size:28px; font-weight:700; border-bottom-left-radius:15px; border-bottom-right-radius:15px; box-shadow:0 4px 10px rgba(0,0,0,0.1);}
-nav { background-color:#16a34a; padding:14px 0; text-align:center; border-radius:0 0 10px 10px; box-shadow:0 2px 6px rgba(0,0,0,0.1);}
-nav a { color:#fff; margin:0 18px; text-decoration:none; font-weight:600; font-size:16px; transition:color 0.3s;}
-nav a:hover { color:#e0f7e5;}
-section { padding:60px 20px;}
-h2 { color:#059669; text-align:center; font-size:26px; margin-bottom:25px;}
-.conteudoSecao { font-size:15px; color:#045d04; max-width:800px; margin:0 auto; line-height:1.7;}
-.conteudoSecao li { margin-bottom:10px;}
-.produtos { display:grid; grid-template-columns:repeat(auto-fit, minmax(240px,1fr)); gap:30px; justify-items:center; margin-top:30px;}
-.produto { background:#e6f8ed; width:240px; padding:20px; border-radius:12px; box-shadow:0 6px 18px rgba(0,0,0,0.12); text-align:center; transition:transform 0.3s, box-shadow 0.3s, background 0.3s; cursor:pointer; text-decoration:none; color:inherit;}
-.produto:hover { transform:translateY(-6px); box-shadow:0 10px 25px rgba(0,0,0,0.15); background:#d1f3d1;}
-.produto img { width:100%; height:160px; object-fit:cover; border-radius:10px; margin-bottom:12px;}
-.produto h3 { font-size:18px; margin:10px 0;}
-.preco { font-weight:700; color:#059669; font-size:16px; margin:8px 0;}
+
+body { 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    background: url('https://usagif.com/wp-content/uploads/2022/hqgif/ocean-wave-4-deep-blue-ocean-waves-acegif.gif') no-repeat center center fixed; 
+    background-size: cover;
+    color: #045d04; 
+    line-height:1.6; 
+}
+
+/* BLOCOS DE TEXTO */
+.blocoTexto {
+    background:#ffffff;
+    padding:20px;
+    border-radius:12px;
+    box-shadow:0 6px 18px rgba(0,0,0,0.12);
+    max-width:800px;
+    margin:20px auto;
+}
+
+/* HEADER */
+header {
+    background: linear-gradient(135deg, #22c55e, #4ade80);
+    color:#fff;
+    padding:40px 20px;
+    text-align:center;
+    font-size:28px;
+    font-weight:700;
+    border-bottom-left-radius:15px;
+    border-bottom-right-radius:15px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* NAV */
+nav {
+    background-color:#16a34a;
+    padding:14px 0;
+    text-align:center;
+    border-radius:0 0 10px 10px;
+    box-shadow:0 2px 6px rgba(0,0,0,0.1);
+}
+nav a {
+    color:#fff;
+    margin:0 18px;
+    text-decoration:none;
+    font-weight:600;
+    font-size:16px;
+    transition:color 0.3s;
+}
+nav a:hover { color:#e0f7e5; }
+
+/* SECTIONS */
+section { padding:60px 20px; }
+h2 { color:#059669; text-align:center; font-size:26px; margin-bottom:25px; }
+.conteudoSecao { font-size:15px; color:#045d04; line-height:1.7; }
+.conteudoSecao li { margin-bottom:10px; }
+
+/* PRODUTOS */
+.produtos { display:grid; grid-template-columns:repeat(auto-fit, minmax(240px,1fr)); gap:30px; justify-items:center; margin-top:30px; }
+.produto {
+    background:#e6f8ed;
+    width:240px;
+    padding:20px;
+    border-radius:12px;
+    box-shadow:0 6px 18px rgba(0,0,0,0.12);
+    text-align:center;
+    transition:transform 0.3s, box-shadow 0.3s, background 0.3s;
+    cursor:pointer;
+    text-decoration:none;
+    color:inherit;
+}
+.produto:hover { transform:translateY(-6px); box-shadow:0 10px 25px rgba(0,0,0,0.15); background:#d1f3d1; }
+.produto img { width:100%; height:160px; object-fit:cover; border-radius:10px; margin-bottom:12px; }
+.produto h3 { font-size:18px; margin:10px 0; }
+.preco { font-weight:700; color:#059669; font-size:16px; margin:8px 0; }
+
+/* BOTÕES */
 button { background-color:#22c55e; color:#fff; border:none; padding:12px 18px; cursor:pointer; font-weight:600; border-radius:8px; text-transform:uppercase; transition:all 0.3s; font-size:14px;}
-button:hover { background-color:#16a34a; transform:scale(1.08);}
-footer { background-color:#16a34a; color:#fff; text-align:center; padding:25px 20px; border-top-left-radius:15px; border-top-right-radius:15px; font-size:14px; box-shadow:0 -4px 10px rgba(0,0,0,0.1);}
-#carrinho { position:fixed; top:70px; right:20px; width:300px; background-color:#ffffff; border:2px solid #16a34a; border-radius:12px; padding:20px; box-shadow:0 6px 18px rgba(0,0,0,0.15); max-height:80vh; overflow-y:auto; display:none; z-index:999;}
-.itemCarrinho { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;}
-.itemCarrinho img { width:40px; height:40px; object-fit:cover; border-radius:6px; margin-right:8px; border:1px solid #16a34a;}
-.itemCarrinho button { width:auto; padding:4px 7px; background-color:#ef4444; font-size:12px; border-radius:6px;}
-#toggleCarrinho { position:fixed; top:25px; right:25px; background-color:#22c55e; color:#fff; border:none; border-radius:50%; cursor:pointer; font-weight:bold; font-size:20px; z-index:9999; width:55px; height:55px; display:flex; align-items:center; justify-content:center; transition:transform 0.3s, background 0.3s;}
-#toggleCarrinho:hover { background-color:#16a34a; transform:scale(1.12);}
-#badgeCarrinho { position:absolute; top:-5px; right:-5px; background:red; color:white; font-size:12px; font-weight:bold; width:20px; height:20px; border-radius:50%; display:flex; align-items:center; justify-content:center;}
+button:hover { background-color:#16a34a; transform:scale(1.08); }
+
+/* CARRINHO */
+#toggleCarrinho {
+    position:fixed; top:25px; right:25px; background-color:#22c55e; color:#fff; border:none; border-radius:50%;
+    cursor:pointer; font-weight:bold; font-size:20px; z-index:9999; width:55px; height:55px; display:flex; align-items:center; justify-content:center; transition:transform 0.3s, background 0.3s;
+}
+#toggleCarrinho:hover { background-color:#16a34a; transform:scale(1.12); }
+
+#toggleCarrinho span {
+    position:absolute; top:-6px; right:-6px; background:#ef4444; color:#fff; width:20px; height:20px; font-size:12px; display:flex; align-items:center; justify-content:center; border-radius:50%;
+}
+
+#carrinho {
+    position:fixed; top:70px; right:20px; width:300px; background-color:#ffffff; border:2px solid #16a34a; border-radius:12px; padding:20px; box-shadow:0 6px 18px rgba(0,0,0,0.15); max-height:80vh; overflow-y:auto; display:none; z-index:999;
+}
+.itemCarrinho { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
+.itemCarrinho img { width:40px; height:40px; object-fit:cover; border-radius:6px; border:1px solid #16a34a; margin-right:8px; }
+.itemCarrinho button { width:auto; padding:4px 7px; background-color:#ef4444; font-size:12px; border-radius:6px; }
+
+/* MODAL */
 #modalProduto { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.65); display:none; justify-content:center; align-items:center; z-index:1000;}
 .modalConteudo { background:#f0fff0; padding:25px; border-radius:15px; width:420px; max-height:85vh; overflow-y:auto; text-align:center; transform:scale(0.5); opacity:0; transition:all 0.35s ease;}
-.modalConteudo.show { transform:scale(1); opacity:1;}
-.modalConteudo img { width:100%; height:220px; object-fit:cover; border-radius:10px; margin-bottom:12px;}
-.modalConteudo h3 { color:#059669; margin:10px 0;}
-.modalConteudo p { text-align:left; margin-top:10px; font-size:14px;}
-.modalConteudo button { width:48%; margin-top:18px;}
-.modalConteudo button.fechar { background-color:#ef4444; margin-left:4%;}
-.videoClicavel { display:inline-block; cursor:pointer; border-radius:12px; overflow:hidden; box-shadow:0 6px 18px rgba(0,0,0,0.15); transition:transform 0.3s;}
-.videoClicavel img { width:100%; display:block;}
-.videoClicavel:hover { transform:scale(1.05);}
+.modalConteudo.show { transform:scale(1); opacity:1; }
+.modalConteudo img { width:100%; height:220px; object-fit:cover; border-radius:10px; margin-bottom:12px; }
+.modalConteudo h3 { color:#059669; margin:10px 0; }
+.modalConteudo p { text-align:left; margin-top:10px; font-size:14px; }
+.modalConteudo button { width:48%; margin-top:18px; }
+.modalConteudo button.fechar { background-color:#ef4444; margin-left:4%; }
+
+.videoClicavel { display:inline-block; cursor:pointer; border-radius:12px; overflow:hidden; box-shadow:0 6px 18px rgba(0,0,0,0.15); transition:transform 0.3s; }
+.videoClicavel img { width:100%; display:block; }
+.videoClicavel:hover { transform:scale(1.05); }
+
+footer { background-color:#16a34a; color:#fff; text-align:center; padding:25px 20px; border-top-left-radius:15px; border-top-right-radius:15px; font-size:14px; box-shadow:0 -4px 10px rgba(0,0,0,0.1); }
 </style>
 </head>
 <body>
@@ -50,6 +126,10 @@ footer { background-color:#16a34a; color:#fff; text-align:center; padding:25px 2
 <audio id="audioSite" autoplay loop>
   <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
   O seu navegador não suporta áudio.
+</audio>
+
+<audio id="audioCompra">
+  <source src="videoplayback.mp3" type="audio/mpeg">
 </audio>
 
 <header>Raiz Verde | Produtos Sustentáveis</header>
@@ -62,10 +142,7 @@ footer { background-color:#16a34a; color:#fff; text-align:center; padding:25px 2
     <a href="#contactos">Contactos</a>
 </nav>
 
-<button id="toggleCarrinho">
-  🛒
-  <span id="badgeCarrinho">0</span>
-</button>
+<button id="toggleCarrinho">🛒<span id="badge">0</span></button>
 
 <div id="carrinho">
     <div id="itensCarrinho"></div>
@@ -85,20 +162,24 @@ footer { background-color:#16a34a; color:#fff; text-align:center; padding:25px 2
 </div>
 
 <section id="inicio">
-    <h2>Bem-vindo</h2>
-    <p style="text-align:center; max-width: 800px; margin: 0 auto; line-height: 1.7;">
+    <div class="blocoTexto">
+        <h2>Bem-vindo</h2>
+        <p>
         Explore produtos ecológicos e divertidos para toda a família! Na <strong>Raiz Verde</strong>, acreditamos que pequenas escolhas sustentáveis podem fazer uma grande diferença para o nosso planeta.
-    </p>
+        </p>
+    </div>
 </section>
 
 <section id="escolaLink">
-  <h2>Visite a Escola Secundária Martins Sarmento</h2>
-  <p style="text-align:center;">Clique no logotipo para abrir o site oficial da escola!</p>
-  <div style="text-align:center; margin-top:20px;">
-    <a href="https://esmsarmento.pt" target="_blank">
-      <img src="https://esmsarmento.pt/imgs/downloads/042135_1_6322_logotipo.png" alt="Logotipo ESMSarmento" style="width:180px; border-radius:12px; border:2px solid #16a34a;">
-    </a>
-  </div>
+    <div class="blocoTexto">
+      <h2>Visite a Escola Secundária Martins Sarmento</h2>
+      <p>Clique no logotipo para abrir o site oficial da escola!</p>
+      <div style="text-align:center; margin-top:20px;">
+        <a href="https://esmsarmento.pt" target="_blank">
+          <img src="https://esmsarmento.pt/imgs/downloads/042135_1_6322_logotipo.png" alt="Logotipo ESMSarmento" style="width:180px; border-radius:12px; border:2px solid #16a34a;">
+        </a>
+      </div>
+    </div>
 </section>
 
 <section id="produtos">
@@ -107,32 +188,40 @@ footer { background-color:#16a34a; color:#fff; text-align:center; padding:25px 2
 </section>
 
 <section id="educacao">
-    <h2>Educação Ambiental</h2>
-    <ul class="conteudoSecao">
-        <li>Reduzir desperdício</li>
-        <li>Reutilizar materiais</li>
-        <li>Escolher produtos responsáveis</li>
-    </ul>
+    <div class="blocoTexto">
+        <h2>Educação Ambiental</h2>
+        <ul class="conteudoSecao">
+            <li>Reduzir desperdício</li>
+            <li>Reutilizar materiais</li>
+            <li>Escolher produtos responsáveis</li>
+        </ul>
+    </div>
 </section>
 
 <section id="sobre">
-    <h2>Sobre a Raiz Verde</h2>
-    <p class="conteudoSecao">Projeto dedicado à promoção de práticas sustentáveis de forma divertida e educativa para todas as idades.</p>
+    <div class="blocoTexto">
+        <h2>Sobre a Raiz Verde</h2>
+        <p>Projeto dedicado à promoção de práticas sustentáveis de forma divertida e educativa para todas as idades.</p>
+    </div>
 </section>
 
 <section id="contactos">
-    <h2>Contactos</h2>
-    <p class="conteudoSecao">Email: contacto@raizverde.pt</p>
-    <p class="conteudoSecao">Telefone: 912 345 678</p>
+    <div class="blocoTexto">
+        <h2>Contactos</h2>
+        <p>Email: contacto@raizverde.pt</p>
+        <p>Telefone: 912 345 678</p>
+    </div>
 </section>
 
 <section id="video">
-  <h2>Assista ao Vídeo</h2>
-  <p style="text-align:center;">Clique no vídeo para abrir no YouTube</p>
-  <div style="text-align:center; margin-top:20px;">
-    <a href="https://www.youtube.com/watch?v=EWqnWXnXURw" target="_blank" class="videoClicavel">
-      <img src="https://img.youtube.com/vi/EWqnWXnXURw/0.jpg" alt="Vídeo YouTube">
-    </a>
+  <div class="blocoTexto">
+    <h2>Assista ao Vídeo</h2>
+    <p style="text-align:center;">Clique no vídeo para abrir no YouTube</p>
+    <div style="text-align:center; margin-top:20px;">
+      <a href="https://www.youtube.com/watch?v=EWqnWXnXURw" target="_blank" class="videoClicavel">
+        <img src="https://img.youtube.com/vi/EWqnWXnXURw/0.jpg" alt="Vídeo YouTube">
+      </a>
+    </div>
   </div>
 </section>
 
@@ -158,7 +247,6 @@ const produtos = [
 let carrinho = [];
 let modalProdutoId = null;
 
-// Mostrar produtos
 function mostrarProdutos(){
     const lista = document.getElementById("listaProdutos");
     lista.innerHTML = "";
@@ -172,7 +260,6 @@ function mostrarProdutos(){
     });
 }
 
-// Abrir modal
 function abrirModal(id){
     modalProdutoId = id;
     const p = produtos[id];
@@ -186,7 +273,6 @@ function abrirModal(id){
     setTimeout(()=>conteudo.classList.add("show"),10);
 }
 
-// Fechar modal
 function fecharModal(){
     const modal = document.getElementById("modalProduto");
     const conteudo = modal.querySelector(".modalConteudo");
@@ -194,24 +280,23 @@ function fecharModal(){
     setTimeout(()=>modal.style.display="none",300);
 }
 
-// Adicionar ao carrinho
 function adicionarCarrinhoModal(){
     if(modalProdutoId!==null){
         carrinho.push(produtos[modalProdutoId]);
         atualizarCarrinho();
-        atualizarBadgeCarrinho();
+        modalProdutoId = null;
         fecharModal();
     }
 }
 
-// Atualizar carrinho
 function atualizarCarrinho(){
     const itens = document.getElementById("itensCarrinho");
     itens.innerHTML="";
     let total=0;
     carrinho.forEach((item,index)=>{
         total+=item.price;
-        itens.innerHTML+=`<div class="itemCarrinho">
+        itens.innerHTML+=`
+        <div class="itemCarrinho">
             <div style="display:flex; align-items:center;">
                 <img src="${item.img}" alt="${item.name}">
                 <span>${item.name} (€${item.price.toFixed(2)})</span>
@@ -220,39 +305,29 @@ function atualizarCarrinho(){
         </div>`;
     });
     document.getElementById("total").innerText=total.toFixed(2);
+
+    // Atualizar badge
+    document.getElementById("badge").innerText = carrinho.length;
 }
 
-// Atualizar badge
-function atualizarBadgeCarrinho(){
-    const badge = document.getElementById("badgeCarrinho");
-    badge.innerText = carrinho.length;
-}
-
-// Remover item do carrinho
 function removerCarrinho(index){
     carrinho.splice(index,1);
     atualizarCarrinho();
-    atualizarBadgeCarrinho();
 }
 
-// Botão do carrinho
 document.getElementById("toggleCarrinho").addEventListener("click",()=>{
     const carrinhoDiv=document.getElementById("carrinho");
     carrinhoDiv.style.display = carrinhoDiv.style.display==="block"?"none":"block";
 });
 
-// Finalizar compra com som
 document.getElementById("checkoutBtn").addEventListener("click",()=>{
-    if(carrinho.length===0){ return; }
-    // Tocar som do arquivo "videoplayback.mp3"
-    const audioCompra = new Audio("videoplayback.mp3");
-    audioCompra.play();
-    carrinho=[];
-    atualizarCarrinho();
-    atualizarBadgeCarrinho();
+    if(carrinho.length>0){
+        document.getElementById("audioCompra").play();
+        carrinho=[];
+        atualizarCarrinho();
+    }
 });
 
-// Mostrar produtos na página
 mostrarProdutos();
 </script>
 
